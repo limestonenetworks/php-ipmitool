@@ -37,7 +37,7 @@ class Config implements \ArrayAccess
                 continue;
             }
             $command[] = " -{$flags[$item]}";
-            if($value !== '' && !in_array($item,$skipValue)){
+            if ($value !== '' && !in_array($item, $skipValue)) {
                 $command[] = $value;
             }
         }
@@ -47,7 +47,7 @@ class Config implements \ArrayAccess
     public function getEnvironmentVariables()
     {
         $env = [];
-        if(isset($this->config['password_env']) && $this->config['password_env'] !== true){
+        if (isset($this->config['password_env']) && $this->config['password_env'] !== true) {
             $env['IPMI_PASSWORD'] = $this->config['password_env'];
         }
         return $env;

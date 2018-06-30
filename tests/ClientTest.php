@@ -13,9 +13,9 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $config->shouldReceive('getEnvironmentVariables')->andReturn([]);
         $config->shouldReceive('getCwd')->andReturn('');
         $config->shouldReceive('generateBaseCommand')->andReturn([]);
-        $client = new Client(new Process(''),$config);
+        $client = new Client(new Process(''), $config);
         $resultb = $client->run(['ls']);
-        $this->assertEquals($resulta,$resultb);
+        $this->assertEquals($resulta, $resultb);
     }
 
     public function testCommandEnvIsInjected()
@@ -25,11 +25,11 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $config->shouldReceive('getEnvironmentVariables')->andReturn(['foo'=>'bar']);
         $config->shouldReceive('getCwd')->andReturn('');
         $config->shouldReceive('generateBaseCommand')->andReturn([]);
-        $client = new Client(new Process(''),$config);
+        $client = new Client(new Process(''), $config);
         $resultb = $client->run(['env']);
-        $this->assertNotEquals($resulta,$resultb);
-        $this->assertNotContains('foo=bar',$resulta);
-        $this->assertContains('foo=bar',$resultb);
+        $this->assertNotEquals($resulta, $resultb);
+        $this->assertNotContains('foo=bar', $resulta);
+        $this->assertContains('foo=bar', $resultb);
     }
 
     public function testBaseCommandIsInjected()
@@ -39,9 +39,9 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $config->shouldReceive('getEnvironmentVariables')->andReturn([]);
         $config->shouldReceive('getCwd')->andReturn('');
         $config->shouldReceive('generateBaseCommand')->andReturn(['ls']);
-        $client = new Client(new Process(''),$config);
+        $client = new Client(new Process(''), $config);
         $resultb = $client->run(['-lh']);
-        $this->assertEquals($resulta,$resultb);
+        $this->assertEquals($resulta, $resultb);
     }
 
     /**
@@ -53,7 +53,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $config->shouldReceive('getEnvironmentVariables')->andReturn([]);
         $config->shouldReceive('getCwd')->andReturn('');
         $config->shouldReceive('generateBaseCommand')->andReturn(['exit']);
-        $client = new Client(new Process(''),$config);
+        $client = new Client(new Process(''), $config);
         $client->run(['1']);
     }
 
@@ -64,8 +64,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $config->shouldReceive('getEnvironmentVariables')->andReturn([]);
         $config->shouldReceive('generateBaseCommand')->andReturn(['ls']);
         $config->shouldReceive('getCwd')->andReturn('..');
-        $client = new Client(new Process(''),$config);
+        $client = new Client(new Process(''), $config);
         $resultb = $client->run(['-lh']);
-        $this->assertEquals($resulta,$resultb);
+        $this->assertEquals($resulta, $resultb);
     }
 }

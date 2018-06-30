@@ -21,12 +21,12 @@ class Client
     {
         $config = $this->getConfig();
         $env = $config->getEnvironmentVariables();
-        $command = array_merge($config->generateBaseCommand(),$command);
-        if($config->getCwd() !== ''){
+        $command = array_merge($config->generateBaseCommand(), $command);
+        if ($config->getCwd() !== '') {
             $this->process->setWorkingDirectory($config->getCwd());
         }
         $this->process->setCommandLine($command);
-        $this->process->run($callback,$env);
+        $this->process->run($callback, $env);
         if (!$this->process->isSuccessful()) {
             throw new ProcessFailedException($this->process);
         }
