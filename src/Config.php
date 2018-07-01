@@ -37,7 +37,7 @@ class Config implements \ArrayAccess
             if (in_array($item, $whitelist)) {
                 continue;
             }
-            $command[] = " -{$flags[$item]}";
+            $command[] = "-{$flags[$item]}";
             if ($value !== '' && !in_array($item, $skipValue)) {
                 $command[] = $value;
             }
