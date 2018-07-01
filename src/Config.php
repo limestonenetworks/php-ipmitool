@@ -32,8 +32,9 @@ class Config implements \ArrayAccess
         $flags = $this->getFlags();
         $command = [$this->getBinary()];
         $skipValue = ['password_env'];
+        $whitelist = ['binary','cwd'];
         foreach ($this->getConfig() as $item => $value) {
-            if ($item === 'binary') {
+            if (in_array($item, $whitelist)) {
                 continue;
             }
             $command[] = " -{$flags[$item]}";
