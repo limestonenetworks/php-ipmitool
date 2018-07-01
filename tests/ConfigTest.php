@@ -19,6 +19,14 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayNotHasKey('foo', $conf);
     }
 
+    public function testConfigValidateRetainsCWD()
+    {
+        $config = new Config([]);
+        $conf = $config->getConfig();
+        $this->assertArrayHasKey('cwd', $conf);
+        $this->assertEmpty($conf['cwd']);
+    }
+
     public function testConfigValidateMutuallyExclusivePassword()
     {
         $config = new Config(['password'=>'foobar','password_env'=>true]);

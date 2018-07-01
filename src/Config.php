@@ -219,7 +219,7 @@ class Config implements \ArrayAccess
     private function validateConfig(array $config): array
     {
         $flags = $this->getFlags();
-        $whitelist = ['binary'];
+        $whitelist = ['binary','cwd'];
         foreach ($config as $item => $value) {
             if (!isset($flags[$item]) && !in_array($item, $whitelist)) {
                 unset($config[$item]);
