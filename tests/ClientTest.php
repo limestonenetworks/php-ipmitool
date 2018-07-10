@@ -12,6 +12,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $config = \Mockery::mock(Config::class);
         $config->shouldReceive('getEnvironmentVariables')->andReturn([]);
         $config->shouldReceive('getCwd')->andReturn('');
+        $config->shouldReceive('getTimeout')->andReturn(0);
         $config->shouldReceive('generateBaseCommand')->andReturn([]);
         $client = new Client(new Process(''), $config);
         $resultb = $client->run(['ls']);
@@ -24,6 +25,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $config = \Mockery::mock(Config::class);
         $config->shouldReceive('getEnvironmentVariables')->andReturn(['foo'=>'bar']);
         $config->shouldReceive('getCwd')->andReturn('');
+        $config->shouldReceive('getTimeout')->andReturn(0);
         $config->shouldReceive('generateBaseCommand')->andReturn([]);
         $client = new Client(new Process(''), $config);
         $resultb = $client->run(['env']);
@@ -38,6 +40,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $config = \Mockery::mock(Config::class);
         $config->shouldReceive('getEnvironmentVariables')->andReturn([]);
         $config->shouldReceive('getCwd')->andReturn('');
+        $config->shouldReceive('getTimeout')->andReturn(0);
         $config->shouldReceive('generateBaseCommand')->andReturn(['ls']);
         $client = new Client(new Process(''), $config);
         $resultb = $client->run(['-lh']);
@@ -52,6 +55,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $config = \Mockery::mock(Config::class);
         $config->shouldReceive('getEnvironmentVariables')->andReturn([]);
         $config->shouldReceive('getCwd')->andReturn('');
+        $config->shouldReceive('getTimeout')->andReturn(0);
         $config->shouldReceive('generateBaseCommand')->andReturn(['exit']);
         $client = new Client(new Process(''), $config);
         $client->run(['1']);
@@ -64,6 +68,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $config->shouldReceive('getEnvironmentVariables')->andReturn([]);
         $config->shouldReceive('generateBaseCommand')->andReturn(['ls']);
         $config->shouldReceive('getCwd')->andReturn('..');
+        $config->shouldReceive('getTimeout')->andReturn(0);
         $client = new Client(new Process(''), $config);
         $resultb = $client->run(['-lh']);
         $this->assertEquals($resulta, $resultb);
