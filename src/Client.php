@@ -26,6 +26,10 @@ class Client
             $this->process->setWorkingDirectory($config->getCwd());
         }
         $this->process->setCommandLine($command);
+        $timeout = $config->getTimeout();
+        if ($timeout > 0) {
+            $this->process->setTimeout($timeout);
+        }
         $this->process->run($callback, $env);
         if (!$this->process->isSuccessful()) {
             throw new ProcessFailedException($this->process);

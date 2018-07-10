@@ -68,4 +68,19 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $resultb = $client->run(['-lh']);
         $this->assertEquals($resulta, $resultb);
     }
+
+    public function testTimeoutisRespected()
+    {
+        $resulta = shell_exec('cd ..; ls -lh');
+        $config = \Mockery::mock(Config::class);
+        $config->shouldReceive('getEnvironmentVariables')->andReturn([]);
+        $config->shouldReceive('generateBaseCommand')->andReturn(['ls']);
+        $config->shouldReceive('getCwd')->andReturn('..');
+        $config->shouldReceive('getTimeout')->andReturn(1);
+        $client = new Client(new Process(''), $config);
+        $resultb = $client->run(['-lh']);
+        $this->assertEquals($resulta, $resultb);
+        $process = $client->getProcess();
+        $this->assertEquals(1, $process->getTimeout());
+    }
 }

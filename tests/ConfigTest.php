@@ -10,6 +10,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $conf = $config->getConfig();
         $this->assertEquals('ADMIN', $conf['username']);
         $this->assertEquals('lanplus', $conf['interface']);
+        $this->assertEquals(0, $conf['timeout']);
     }
 
     public function testConfigValidate()

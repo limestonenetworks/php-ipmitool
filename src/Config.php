@@ -16,6 +16,7 @@ class Config implements \ArrayAccess
         'level'         => 'L'
     ];
     private $config;
+    protected $fieldWhitelist = ['binary','cwd','timeout'];
 
     /**
      * Config constructor.
@@ -32,9 +33,8 @@ class Config implements \ArrayAccess
         $flags = $this->getFlags();
         $command = [$this->getBinary()];
         $skipValue = ['password_env'];
-        $whitelist = ['binary','cwd'];
         foreach ($this->getConfig() as $item => $value) {
-            if (in_array($item, $whitelist)) {
+            if (in_array($item, $this->fieldWhitelist)) {
                 continue;
             }
             $command[] = "-{$flags[$item]}";
@@ -180,6 +180,27 @@ class Config implements \ArrayAccess
     }
 
     /**
+     * @codeCoverageIgnore
+     * @return int
+     */
+    public function getTimeout(): int
+    {
+        return $this->config['timeout'];
+    }
+
+    /**
+     * @param int $timeout
+     *
+     * @codeCoverageIgnore
+     * @return Config
+     */
+    public function setTimeout(int $timeout): Config
+    {
+        $this->config['timeout'] = $timeout;
+        return $this;
+    }
+    
+    /**
      * @return array
      */
     public function getConfig(): array
@@ -205,6 +226,7 @@ class Config implements \ArrayAccess
             'interface' => 'lanplus',
             'binary'    => 'ipmitool',
             'cwd'       => '',
+            'timeout'   => 0
         ];
 
         return array_merge($config, $defaults);
@@ -220,9 +242,8 @@ class Config implements \ArrayAccess
     private function validateConfig(array $config): array
     {
         $flags = $this->getFlags();
-        $whitelist = ['binary','cwd'];
         foreach ($config as $item => $value) {
-            if (!isset($flags[$item]) && !in_array($item, $whitelist)) {
+            if (!isset($flags[$item]) && !in_array($item, $this->fieldWhitelist)) {
                 unset($config[$item]);
             }
             if ($item === 'password') {
