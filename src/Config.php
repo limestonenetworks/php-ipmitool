@@ -229,7 +229,7 @@ class Config implements \ArrayAccess
             'timeout'   => 0
         ];
 
-        return array_merge($config, $defaults);
+        return array_merge($defaults, $config);
     }
 
     /**
