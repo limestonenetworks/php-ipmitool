@@ -226,7 +226,7 @@ class Config implements \ArrayAccess
             'interface' => 'lanplus',
             'binary'    => 'ipmitool',
             'cwd'       => '',
-            'timeout'   => 0
+            'timeout'   => 15
         ];
 
         return array_merge($defaults, $config);
@@ -287,7 +287,7 @@ class Config implements \ArrayAccess
      * @codeCoverageIgnore
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->config[$offset]);
     }
@@ -298,7 +298,7 @@ class Config implements \ArrayAccess
      * @codeCoverageIgnore
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->config[$offset];
     }
@@ -310,7 +310,7 @@ class Config implements \ArrayAccess
      * @codeCoverageIgnore
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, $value): void
     {
         $this->config[$offset] = $value;
     }

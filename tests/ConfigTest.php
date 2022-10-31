@@ -10,7 +10,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $conf = $config->getConfig();
         $this->assertEquals('ADMIN', $conf['username']);
         $this->assertEquals('lanplus', $conf['interface']);
-        $this->assertEquals(0, $conf['timeout']);
+        $this->assertEquals(15, $conf['timeout']);
     }
 
     public function testConfigValidate()
@@ -82,22 +82,22 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
     {
         $config = new Config(['password'=>'foobar']);
         $base = $config->generateBaseCommand();
-        $this->assertTrue(is_array($base));
+        $this->assertIsArray($base);
         $this->assertEquals('ipmitool', $base[0]);
-        $this->assertContains(implode(' ', ['-U','ADMIN']), implode(' ', $base));
-        $this->assertContains(implode(' ', ['-I','lanplus']), implode(' ', $base));
-        $this->assertContains(implode(' ', ['-P','foobar']), implode(' ', $base));
+        $this->assertStringContainsString(implode(' ', ['-U','ADMIN']), implode(' ', $base));
+        $this->assertStringContainsString(implode(' ', ['-I','lanplus']), implode(' ', $base));
+        $this->assertStringContainsString(implode(' ', ['-P','foobar']), implode(' ', $base));
     }
 
     public function testGenerateBaseCommandWithPasswordEnv()
     {
         $config = new Config(['password_env'=>'foobar']);
         $base = $config->generateBaseCommand();
-        $this->assertTrue(is_array($base));
+        $this->assertIsArray($base);
         $this->assertEquals('ipmitool', $base[0]);
-        $this->assertContains(implode(' ', ['-U','ADMIN']), implode(' ', $base));
-        $this->assertContains(implode(' ', ['-I','lanplus']), implode(' ', $base));
-        $this->assertContains(implode(' ', ['-E']), implode(' ', $base));
-        $this->assertNotContains(implode(' ', ['-P']), implode(' ', $base));
+        $this->assertStringContainsString(implode(' ', ['-U','ADMIN']), implode(' ', $base));
+        $this->assertStringContainsString(implode(' ', ['-I','lanplus']), implode(' ', $base));
+        $this->assertStringContainsString(implode(' ', ['-E']), implode(' ', $base));
+        $this->assertStringNotContainsString(implode(' ', ['-P']), implode(' ', $base));
     }
 }
