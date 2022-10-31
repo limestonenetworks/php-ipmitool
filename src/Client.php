@@ -11,9 +11,8 @@ class Client
     protected $config;
     protected $cwd;
 
-    public function __construct(Process $process, Config $config)
+    public function __construct(Config $config)
     {
-        $this->process = $process;
         $this->config = $config;
     }
 
@@ -22,14 +21,13 @@ class Client
         $config = $this->getConfig();
         $env = $config->getEnvironmentVariables();
         $command = array_merge($config->generateBaseCommand(), $command);
+        $cwd = null;
         if ($config->getCwd() !== '') {
-            $this->process->setWorkingDirectory($config->getCwd());
+            $cwd = $config->getCwd();
         }
-        $this->process->setCommandLine($command);
+
         $timeout = $config->getTimeout();
-        if ($timeout > 0) {
-            $this->process->setTimeout($timeout);
-        }
+        $this->setProcess(new Process($command, $cwd, null, null, $timeout));
         $this->process->run($callback, $env);
         if (!$this->process->isSuccessful()) {
             throw new ProcessFailedException($this->process);
