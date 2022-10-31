@@ -3,7 +3,8 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Total Downloads][ico-downloads]][link-downloads]
-
+[![CI](https://github.com/limestonenetworks/php-ipmitool/actions/workflows/ci.yml/badge.svg)](https://github.com/limestonenetworks/php-ipmitool/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/github/limestonenetworks/php-ipmitool/branch/master/graph/badge.svg?token=3J2HHKQ22E)](https://codecov.io/github/limestonenetworks/php-ipmitool)
 
 This is a php wrapper for [ipmitool](https://github.com/ipmitool/ipmitool). The goal is allow easy bootstrapping and integration of ipmitool into an existing application.
 
