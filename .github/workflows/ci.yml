@@ -21,7 +21,7 @@ jobs:
       - name: Lint
         run:  vendor/bin/phpcs --standard=psr2 src/
       - name: Test
-        run:  vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+        run:  XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
       - uses: codecov/codecov-action@v2
         with:
