@@ -287,7 +287,7 @@ class Config implements \ArrayAccess
      * @codeCoverageIgnore
      * @return bool
      */
-    public function offsetExists(mixed $offset): bool
+    public function offsetExists($offset): bool
     {
         return isset($this->config[$offset]);
     }
@@ -298,7 +298,8 @@ class Config implements \ArrayAccess
      * @codeCoverageIgnore
      * @return mixed
      */
-    public function offsetGet(mixed $offset): mixed
+    #[\ReturnTypeWillChange]
+    public function offsetGet($offset)
     {
         return $this->config[$offset];
     }
@@ -310,7 +311,7 @@ class Config implements \ArrayAccess
      * @codeCoverageIgnore
      * @return void
      */
-    public function offsetSet(mixed $offset, $value): void
+    public function offsetSet($offset, $value): void
     {
         $this->config[$offset] = $value;
     }
